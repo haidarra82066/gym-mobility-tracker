@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#071215">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Rami Gym + Mobility Tracker</title>
+<style>
+:root{--bg:#071215;--surface:#0d1c20;--surface2:#12262b;--line:#214047;--text:#f3f8f8;--muted:#91a6aa;--accent:#5bd7c8;--accentDark:#072421;--danger:#ff8f8f;--safeBottom:env(safe-area-inset-bottom,0px);--safeTop:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:var(--bg);color:var(--text);overflow-x:hidden}body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.4;padding-bottom:calc(76px + var(--safeBottom));-webkit-text-size-adjust:100%}button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:var(--accent);text-decoration:none}button{cursor:pointer}.app-shell{width:100%;min-height:100dvh;margin:0 auto}.app-top{position:sticky;top:0;z-index:30;background:rgba(7,18,21,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06);padding:calc(10px + var(--safeTop)) 12px 10px}.top-row{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:8px;max-width:760px;margin:0 auto}.home-link,.top-next{height:40px;display:grid;place-items:center;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);font-size:18px}.top-title{text-align:center;min-width:0}.brand{font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}.top-title strong{display:block;font-size:16px;line-height:1.1}.today{font-size:10px;color:var(--muted);margin-top:2px}.screen{display:block!important;width:100%;min-height:calc(100dvh - 68px - 76px - var(--safeTop) - var(--safeBottom));padding:14px 9px 24px}.screen-inner{width:100%;max-width:720px;margin:0 auto}.screen-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px}.day-label{color:var(--accent);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.screen-head h2{font-size:clamp(28px,8vw,38px);letter-spacing:-.045em;line-height:1;margin:4px 0 5px}.screen-head p{margin:0;color:var(--muted);font-size:12px}.progress-pill{flex:0 0 auto;background:var(--surface);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:7px 9px;font-size:10px;font-weight:800;margin-top:2px}.summary-card{background:linear-gradient(135deg,rgba(91,215,200,.12),rgba(91,215,200,.03));border:1px solid rgba(91,215,200,.22);border-radius:15px;padding:11px 12px;margin-bottom:10px}.summary-card strong{font-size:12px}.summary-card p{margin:5px 0 0;color:#bfd0d2;font-size:11px}.quick-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}.quick-links a{display:flex;align-items:center;justify-content:center;min-height:42px;border:1px solid var(--line);background:var(--surface);border-radius:12px;font-size:11px;font-weight:900}.exercise-list{display:grid;gap:10px}.exercise-card{background:linear-gradient(180deg,var(--surface),#09171a);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.14)}.exercise-card.completed{opacity:.7}.exercise-card.completed h3{text-decoration:line-through;text-decoration-thickness:1px}.exercise-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;padding:12px 10px 0}.exercise-name-wrap{display:flex;align-items:flex-start;gap:9px;min-width:0}.exercise-name-wrap h3{font-size:16px;line-height:1.15;margin:0;letter-spacing:-.01em}.prescription{color:var(--muted);font-size:10px;margin-top:3px}.prescription span{margin:0 3px;color:#587077}.demo-btn{flex:0 0 auto;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:7px 8px;font-size:10px;font-weight:850}.done-control,.movement-check{position:relative;display:inline-flex;flex:0 0 auto}.done-control input,.movement-check input{position:absolute;opacity:0;pointer-events:none}.done-control span,.movement-check span{display:block;width:23px;height:23px;border:1.5px solid #42636a;border-radius:7px;background:#081518;position:relative}.done-control input:checked+span,.movement-check input:checked+span{background:var(--accent);border-color:var(--accent)}.done-control input:checked+span:after,.movement-check input:checked+span:after{content:'✓';position:absolute;inset:0;display:grid;place-items:center;color:#072421;font-size:14px;font-weight:1000}.cue{margin:8px 10px 11px;color:#c3d0d2;font-size:11px}.load-panel{background:#071316;border-top:1px solid #18343a;padding:10px}.load-label{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:7px}.load-label strong{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#d9e6e8}.load-label span{color:var(--muted);font-size:9px;text-align:right}.load-row{display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:7px;align-items:center}.adjust,.log-btn{height:44px;border-radius:11px;font-weight:900;border:1px solid var(--line)}.adjust{background:var(--surface2);color:var(--text);font-size:20px}.log-btn{grid-column:1/-1;height:40px;background:var(--accent);border-color:var(--accent);color:var(--accentDark);font-size:12px}.load-input-wrap{position:relative;min-width:0}.load-input{width:100%;height:44px;border:1px solid var(--line);background:#050e11;color:var(--text);border-radius:11px;padding:0 35px 0 8px;text-align:center;font-size:18px;font-weight:900;outline:none}.load-input:focus{border-color:var(--accent)}.load-input-wrap span{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:10px;font-weight:800;color:var(--muted)}.load-stats{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:8px;color:var(--muted);font-size:10px}.load-stats b{color:#dce8e9}.history-toggle{border:0;background:transparent;color:var(--accent);font-size:10px;font-weight:850;padding:3px 0}.history-count{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:#153038;margin-left:2px}.history-panel{border-top:1px solid var(--line);background:#0a171a;padding:8px 10px 11px}.history-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:10px}.history-row:last-child{border-bottom:0}.history-weight{font-weight:900}.history-delete{border:0;background:transparent;color:var(--danger);font-size:10px;padding:4px}.empty-history{color:var(--muted);font-size:10px;padding:3px 0}.movement-list{display:grid;gap:9px}.movement-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:9px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:11px 10px}.movement-row.completed{opacity:.7}.movement-copy h3{font-size:14px;margin:0}.movement-dose{font-size:10px;color:var(--accent);font-weight:850;margin-top:2px}.movement-copy p{font-size:10px;color:var(--muted);margin:4px 0 0}.timer-btn{min-width:58px;border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:10px;padding:8px 7px;font-size:10px;font-weight:850}.timer-btn.running{background:var(--accent);border-color:var(--accent);color:var(--accentDark)}.resource-row{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0}.resource-row a,.secondary-btn{display:flex;align-items:center;justify-content:center;text-align:center;border:1px solid var(--line);background:var(--surface);color:var(--accent);border-radius:12px;min-height:42px;padding:8px 10px;font-size:10px;font-weight:850}.secondary-btn{width:100%;color:var(--muted)}.bottom-nav{position:fixed;z-index:50;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);background:rgba(7,18,21,.98);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:6px 4px calc(6px + var(--safeBottom))}.nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#70888e;min-height:52px;font-size:9px;font-weight:850;padding:3px 1px;border-radius:10px}.nav-icon{display:block;font-size:15px;line-height:1.1;margin-bottom:3px}.nav-item.active{color:var(--accent);background:rgba(91,215,200,.08)}.toast{position:fixed;z-index:100;left:50%;bottom:calc(78px + var(--safeBottom));transform:translate(-50%,18px);opacity:0;pointer-events:none;background:#eaf8f6;color:#092421;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:900;transition:.18s;white-space:nowrap}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(min-width:700px){body{padding-bottom:0}.bottom-nav{position:sticky;bottom:0;max-width:720px;margin:0 auto;border:1px solid var(--line);border-bottom:0;border-radius:18px 18px 0 0}.screen{padding:20px 16px 30px}.load-row{grid-template-columns:42px minmax(0,1fr) 42px 100px}.log-btn{grid-column:auto;height:44px}.resource-row{grid-template-columns:1fr 1fr}}
+@media(max-width:360px){.screen{padding-left:7px;padding-right:7px}.screen-head h2{font-size:27px}.exercise-name-wrap h3{font-size:15px}.load-row{grid-template-columns:39px minmax(0,1fr) 39px}.adjust{height:42px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+body{padding-top:0}
+.app-top{position:sticky;top:0}
+.page-screen{scroll-margin-top:68px;scroll-snap-align:start;min-height:calc(100dvh - 68px - 76px - var(--safeTop) - var(--safeBottom));}
+.page-screen + .page-screen{border-top:1px solid rgba(91,215,200,.14)}
+.page-switch{display:flex;gap:8px;margin:12px 0 2px}
+.page-switch a{flex:1;display:flex;align-items:center;justify-content:center;min-height:42px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:11px;font-weight:900}
+.bottom-nav .nav-item.active{color:var(--accent);background:rgba(91,215,200,.08)}
+@media(max-width:420px){.bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr));}.nav-item{font-size:8px;min-width:0}.nav-icon{font-size:14px}.screen{padding-left:8px;padding-right:8px}.top-title strong{font-size:15px}}
+
+/* True single-view tab routing: only one training page is visible at a time. */
+html{scroll-behavior:auto!important;scroll-snap-type:none!important}
+.page-screen{display:none!important;scroll-margin-top:0;scroll-snap-align:none;border-top:0!important}
+.page-screen:first-of-type{display:block!important}
+.page-screen:target{display:block!important}
+main:has(.page-screen:target) .page-screen:first-of-type:not(:target){display:none!important}
+main.js-routed .page-screen{display:none!important}
+main.js-routed .page-screen.active{display:block!important}
+.session-actions{display:flex;justify-content:flex-end;margin:-2px 0 10px}
+.session-actions .reset-gym-checks{width:auto;min-height:38px;padding:7px 12px;color:#ffb3b3;border-color:rgba(255,143,143,.34);background:rgba(255,143,143,.06)}
+@media(max-width:420px){.session-actions .reset-gym-checks{width:100%;min-height:42px}}
+</style>
+</head>
+<body>
+<div class="app-shell">
+<header class="app-top"><div class="top-row"><a class="home-link" href="#gymA" aria-label="Gym A">A</a><div class="top-title"><div class="brand">Rami Training</div><strong>Gym + Mobility Tracker</strong><div class="today" id="todayLabel"></div></div><a class="top-next" href="#stretch" aria-label="Stretching">○</a></div></header>
+<main><section class="screen page-screen" id="gymA">
+<div class="screen-inner">
+<header class="screen-head">
+<div><div class="day-label">Monday</div><h2>Gym A</h2><p>Strength base</p></div>
+<div class="progress-pill"><span class="done-count">0</span> / 6</div>
+</header>
+<div class="summary-card"><strong>Full body · about 65 min · most working sets at 2 to 3 RIR</strong><p>Start the week with stable, loadable patterns. For the first 2 to 3 weeks, prioritize technique. Add weight only when the last rep still looks controlled.</p></div><div class="quick-links"><a href="#mobility">↗ Mobility before</a><a href="#stretch">○ Stretch after</a></div>
+<div class="session-actions"><button class="reset-gym-checks secondary-btn" type="button">Reset session checkboxes</button></div>
+<div class="exercise-list"><article class="exercise-card" data-exercise="A_leg_press" data-step="5">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Leg press complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Leg press</h3><div class="prescription">3 × 6 to 10 <span>•</span> Rest 2 to 3 min</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=leg+press+technique+renaissance+periodization" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Full pain-free depth. Knees track over toes. Control the lowering phase.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>machine load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Leg press" class="load-input" inputmode="decimal" min="0" step="5" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="A_db_bench" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Dumbbell bench press complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Dumbbell bench press</h3><div class="prescription">3 × 6 to 10 <span>•</span> Rest 2 to 3 min</div></div>
+</div>
+<a class="demo-btn" href="https://musclewiki.com/de-de/exercise/dumbbell-bench-press" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Keep shoulder blades stable, forearms vertical, and use a smooth touch point.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>kg per dumbbell</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Dumbbell bench press" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="A_row" data-step="2.5">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Seated cable row complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Seated cable row</h3><div class="prescription">3 × 8 to 12 <span>•</span> Rest 2 min</div></div>
+</div>
+<a class="demo-btn" href="https://musclewiki.com/de-de/exercise/machine-seated-cable-row" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Chest tall. Pull the elbow toward the hip without jerking the torso.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>stack or machine load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Seated cable row" class="load-input" inputmode="decimal" min="0" step="2.5" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="A_rdl" data-step="2.5">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Romanian deadlift complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Romanian deadlift</h3><div class="prescription">3 × 8 to 10 <span>•</span> Rest 2 to 3 min</div></div>
+</div>
+<a class="demo-btn" href="https://musclewiki.com/de-de/exercise/barbell-romanian-deadlift" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Push hips back, keep a slight knee bend and neutral spine. Stop at a strong hamstring stretch.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>total bar load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Romanian deadlift" class="load-input" inputmode="decimal" min="0" step="2.5" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="A_lateral" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Cable lateral raise complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Cable lateral raise</h3><div class="prescription">3 × 12 to 15 <span>•</span> Rest 60 to 90 s</div></div>
+</div>
+<a class="demo-btn" href="https://musclewiki.com/de-de/exercise/cable-low-single-arm-lateral-raise" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Lead with the elbow, keep the shoulder down, and avoid torso swing.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>kg per side</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Cable lateral raise" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="A_calf" data-step="2.5">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Standing calf raise complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Standing calf raise</h3><div class="prescription">2 × 10 to 15 <span>•</span> Rest 60 to 90 s</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=standing+calf+raise+technique" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Pause in the stretched position and again at the top.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>machine or added load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Standing calf raise" class="load-input" inputmode="decimal" min="0" step="2.5" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article></div>
+</div>
+</section><section class="screen page-screen" id="gymB">
+<div class="screen-inner">
+<header class="screen-head">
+<div><div class="day-label">Wednesday</div><h2>Gym B</h2><p>Unilateral + upper body</p></div>
+<div class="progress-pill"><span class="done-count">0</span> / 7</div>
+</header>
+<div class="summary-card"><strong>Full body · moderate legs · upper pulling and pressing emphasis</strong><p>This session builds single-leg control and upper-body strength while keeping leg fatigue manageable. If padel is planned Thursday, use 2 working sets for split squats and keep leg curls away from failure.</p></div><div class="quick-links"><a href="#mobility">↗ Mobility before</a><a href="#stretch">○ Stretch after</a></div>
+<div class="session-actions"><button class="reset-gym-checks secondary-btn" type="button">Reset session checkboxes</button></div>
+<div class="exercise-list"><article class="exercise-card" data-exercise="B_split" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Bulgarian split squat complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Bulgarian split squat</h3><div class="prescription">3 × 8 to 10 / leg <span>•</span> Rest 2 min</div></div>
+</div>
+<a class="demo-btn" href="https://musclewiki.com/exercise/assisted-bulgarian-split-squat" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Keep the front foot planted and descend under control. Use support if balance limits the target muscle.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>total external load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Bulgarian split squat" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="B_pulldown" data-step="2.5">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Lat pulldown complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Lat pulldown</h3><div class="prescription">3 × 8 to 12 <span>•</span> Rest 2 min</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/watch?v=sRcA-68KOAA" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Drive elbows down, keep ribs controlled, and do not turn the movement into a row.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>stack load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Lat pulldown" class="load-input" inputmode="decimal" min="0" step="2.5" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="B_shoulder" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Dumbbell shoulder press complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Dumbbell shoulder press</h3><div class="prescription">3 × 8 to 12 <span>•</span> Rest 2 min</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=dumbbell+shoulder+press+technique+renaissance+periodization" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Brace the trunk and press in a comfortable scapular plane. Avoid excessive lower-back arch.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>kg per dumbbell</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Dumbbell shoulder press" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="B_legcurl" data-step="2.5">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Leg curl complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Leg curl</h3><div class="prescription">3 × 10 to 15 <span>•</span> Rest 90 s</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=leg+curl+technique+renaissance+periodization" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Control the return, keep hips pinned, and squeeze the hamstrings.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>machine load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Leg curl" class="load-input" inputmode="decimal" min="0" step="2.5" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="B_fly" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Cable fly complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Cable fly</h3><div class="prescription">3 × 10 to 15 <span>•</span> Rest 90 s</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=cable+fly+technique+renaissance+periodization" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Keep soft elbows, bring the upper arms across the chest, and control the stretched position.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>kg per side or stack setting</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Cable fly" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="B_biceps" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Biceps curl complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Biceps curl</h3><div class="prescription">2 × 10 to 15 <span>•</span> Rest 60 to 90 s</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=biceps+curl+triceps+pressdown+technique" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Strict reps. Stop if elbow or wrist discomfort appears. Original plan pairs this with triceps pressdowns.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>chosen implement load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Biceps curl" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="B_triceps" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Triceps pressdown complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Triceps pressdown</h3><div class="prescription">2 × 10 to 15 <span>•</span> Rest 60 to 90 s</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=biceps+curl+triceps+pressdown+technique" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Keep elbows stable and extend without swinging the torso. Original plan pairs this with biceps curls.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>stack load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Triceps pressdown" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article></div>
+</div>
+</section><section class="screen page-screen" id="gymC">
+<div class="screen-inner">
+<header class="screen-head">
+<div><div class="day-label">Friday</div><h2>Gym C</h2><p>Hypertrophy + movement quality</p></div>
+<div class="progress-pill"><span class="done-count">0</span> / 7</div>
+</header>
+<div class="summary-card"><strong>Full body · higher reps · stable hypertrophy work</strong><p>Accumulate quality volume without making Sunday running miserable. Keep lower-body compounds around 2 to 3 RIR instead of turning Friday into a leg-failure session.</p></div><div class="quick-links"><a href="#mobility">↗ Mobility before</a><a href="#stretch">○ Stretch after</a></div>
+<div class="session-actions"><button class="reset-gym-checks secondary-btn" type="button">Reset session checkboxes</button></div>
+<div class="exercise-list"><article class="exercise-card" data-exercise="C_squat" data-step="2.5">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Hack squat or goblet squat complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Hack squat or goblet squat</h3><div class="prescription">4 × 8 to 12 <span>•</span> Rest 2 to 3 min</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/watch?v=2narGqAZWbM" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Use a stance that allows stable, pain-free depth without aggressive pelvis tucking. Choose one variation and track it consistently.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>selected exercise load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Hack squat or goblet squat" class="load-input" inputmode="decimal" min="0" step="2.5" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="C_incline" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Incline dumbbell press complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Incline dumbbell press</h3><div class="prescription">4 × 8 to 12 <span>•</span> Rest 2 min</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=incline+dumbbell+press+technique+jeff+nippard" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Use a moderate incline, control the stretch, and do not bounce out of the bottom.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>kg per dumbbell</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Incline dumbbell press" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="C_chestrow" data-step="2.5">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Chest-supported row complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Chest-supported row</h3><div class="prescription">4 × 8 to 12 <span>•</span> Rest 2 min</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=chest+supported+row+technique+renaissance+periodization" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Keep the chest fixed to the pad. Reach forward, then pull elbows back without shrugging.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>machine or implement load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Chest-supported row" class="load-input" inputmode="decimal" min="0" step="2.5" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="C_hip" data-step="2.5">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Hip thrust complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Hip thrust</h3><div class="prescription">3 × 8 to 12 <span>•</span> Rest 2 min</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=hip+thrust+technique+renaissance+periodization" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Finish with a posterior pelvic tilt. Keep shins near vertical and avoid lumbar hyperextension.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>total load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Hip thrust" class="load-input" inputmode="decimal" min="0" step="2.5" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="C_reardelt" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Rear-delt fly complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Rear-delt fly</h3><div class="prescription">3 × 12 to 20 <span>•</span> Rest 60 to 90 s</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=rear+delt+fly+technique" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Move through the shoulder rather than the lower back. Keep the load modest and controlled.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>machine or dumbbell load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Rear-delt fly" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="C_biceps" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Optional biceps curl complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Optional biceps curl</h3><div class="prescription">2 × 10 to 15 <span>•</span> Rest 60 to 90 s</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=arm+hypertrophy+technique+renaissance+periodization" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Optional arm work from the original plan. Add only if recovery and time are good.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>chosen implement load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Optional biceps curl" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article>
+<article class="exercise-card" data-exercise="C_triceps" data-step="1">
+<div class="exercise-head">
+<div class="exercise-name-wrap">
+<label class="done-control"><input aria-label="Mark Optional triceps work complete" class="done-check" type="checkbox"/><span></span></label>
+<div><h3>Optional triceps work</h3><div class="prescription">2 × 10 to 15 <span>•</span> Rest 60 to 90 s</div></div>
+</div>
+<a class="demo-btn" href="https://www.youtube.com/results?search_query=arm+hypertrophy+technique+renaissance+periodization" rel="noopener" target="_blank">Demo</a>
+</div>
+<p class="cue">Optional arm work from the original plan. Choose a pain-free cable or machine variation.</p>
+<div class="load-panel">
+<div class="load-label"><strong>Current load</strong><span>chosen implement load</span></div>
+<div class="load-row">
+<button aria-label="Decrease load" class="adjust minus" type="button">−</button>
+<div class="load-input-wrap"><input aria-label="Current load for Optional triceps work" class="load-input" inputmode="decimal" min="0" step="1" type="number" value="0"/><span>kg</span></div>
+<button aria-label="Increase load" class="adjust plus" type="button">+</button>
+<button class="log-btn" type="button">Log weight</button>
+</div>
+<div class="load-stats"><span>Last <b class="stat-last">—</b></span><span>Best <b class="stat-best">—</b></span><button class="history-toggle" type="button">History <span class="history-count">0</span></button></div>
+</div>
+<div class="history-panel" hidden=""><div class="history-list"><div class="empty-history">No weight entries yet.</div></div></div>
+</article></div>
+</div>
+</section><section class="screen page-screen" id="mobility">
+<div class="screen-inner">
+<header class="screen-head"><div><div class="day-label">Before every gym session</div><h2>Mobility warm-up</h2><p>8 to 10 minutes · dynamic preparation</p></div><div class="progress-pill"><span class="move-done-count">0</span> / 7</div></header>
+<div class="summary-card"><strong>Prepare, do not fatigue.</strong><p>Use dynamic mobility before lifting. Save long static holds for after training. Then perform ramp-up sets for the first 1 to 2 compound lifts.</p></div>
+<div class="movement-list"><article class="movement-row" data-movement="m1">
+<label class="movement-check"><input aria-label="Mark Easy bike, incline walk, or rower complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Easy bike, incline walk, or rower</h3><div class="movement-dose">3 min</div><p>Raise body temperature at an easy pace.</p></div>
+</article>
+<article class="movement-row" data-movement="m2">
+<label class="movement-check"><input aria-label="Mark Ankle rocks complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Ankle rocks</h3><div class="movement-dose">8 / side</div><p>Move the knee forward over the toes while keeping the heel down.</p></div>
+</article>
+<article class="movement-row" data-movement="m3">
+<label class="movement-check"><input aria-label="Mark 90/90 hip transitions complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>90/90 hip transitions</h3><div class="movement-dose">6 / side</div><p>Rotate slowly through the hips. Keep the movement controlled.</p></div>
+</article>
+<article class="movement-row" data-movement="m4">
+<label class="movement-check"><input aria-label="Mark World's greatest stretch complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>World's greatest stretch</h3><div class="movement-dose">4 / side</div><p>Use it dynamically. Do not turn it into a long passive hold.</p></div>
+</article>
+<article class="movement-row" data-movement="m5">
+<label class="movement-check"><input aria-label="Mark Band pull-aparts complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Band pull-aparts</h3><div class="movement-dose">15 reps</div><p>Control the shoulder blades and avoid shrugging.</p></div>
+</article>
+<article class="movement-row" data-movement="m6">
+<label class="movement-check"><input aria-label="Mark Scapular push-ups complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Scapular push-ups</h3><div class="movement-dose">10 reps</div><p>Protract and retract the shoulder blades without bending the elbows.</p></div>
+</article>
+<article class="movement-row" data-movement="m7">
+<label class="movement-check"><input aria-label="Mark Ramp-up sets complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Ramp-up sets</h3><div class="movement-dose">2 to 4 sets</div><p>For the first compound lift, progressively increase load before the working sets.</p></div>
+</article></div>
+<div class="resource-row"><a href="https://www.youtube.com/watch?v=2narGqAZWbM" rel="noopener" target="_blank">Lower-body mobility video</a><a href="https://www.youtube.com/watch?v=VmaFu8wgi3k" rel="noopener" target="_blank">Upper-body mobility video</a></div>
+<button class="reset-checks secondary-btn" type="button">Reset mobility checks</button>
+</div>
+</section><section class="screen page-screen" id="stretch">
+<div class="screen-inner">
+<header class="screen-head"><div><div class="day-label">After lifting</div><h2>Stretching reset</h2><p>6 to 8 minutes · choose 4 to 6 positions</p></div><div class="progress-pill"><span class="move-done-count">0</span> / 6</div></header>
+<div class="summary-card"><strong>30 to 45 seconds per position.</strong><p>Use calm breathing and controlled tension, not pain. One round is enough on busy days. Use two rounds when flexibility is a priority.</p></div>
+<div class="movement-list"><article class="movement-row" data-movement="s1">
+<label class="movement-check"><input aria-label="Mark Half-kneeling hip flexor stretch complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Half-kneeling hip flexor stretch</h3><div class="movement-dose">30 to 45 s / side</div><p>Tuck the pelvis gently and keep the ribs stacked.</p></div>
+<button class="timer-btn" data-seconds="45" type="button">45s</button>
+</article>
+<article class="movement-row" data-movement="s2">
+<label class="movement-check"><input aria-label="Mark Glute stretch complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Glute stretch</h3><div class="movement-dose">30 to 45 s / side</div><p>Use controlled tension without forcing the knee or hip.</p></div>
+<button class="timer-btn" data-seconds="45" type="button">45s</button>
+</article>
+<article class="movement-row" data-movement="s3">
+<label class="movement-check"><input aria-label="Mark Relaxed hamstring stretch complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Relaxed hamstring stretch</h3><div class="movement-dose">30 to 45 s / side</div><p>Keep it gentle. Do not chase maximum range after hard RDLs.</p></div>
+<button class="timer-btn" data-seconds="45" type="button">45s</button>
+</article>
+<article class="movement-row" data-movement="s4">
+<label class="movement-check"><input aria-label="Mark Calf wall stretch complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Calf wall stretch</h3><div class="movement-dose">30 to 45 s / side</div><p>Keep the heel down and foot pointing mostly forward.</p></div>
+<button class="timer-btn" data-seconds="45" type="button">45s</button>
+</article>
+<article class="movement-row" data-movement="s5">
+<label class="movement-check"><input aria-label="Mark Doorway pec stretch complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Doorway pec stretch</h3><div class="movement-dose">30 to 45 s / side</div><p>Keep the shoulder relaxed and avoid sharp anterior shoulder pain.</p></div>
+<button class="timer-btn" data-seconds="45" type="button">45s</button>
+</article>
+<article class="movement-row" data-movement="s6">
+<label class="movement-check"><input aria-label="Mark Overhead lat stretch complete" type="checkbox"/><span></span></label>
+<div class="movement-copy"><h3>Overhead lat stretch</h3><div class="movement-dose">30 to 45 s / side</div><p>Breathe into the side of the ribcage and avoid excessive low-back arch.</p></div>
+<button class="timer-btn" data-seconds="45" type="button">45s</button>
+</article></div>
+<button class="reset-checks secondary-btn" type="button">Reset stretch checks</button>
+</div>
+</section></main>
+</div>
+<nav class="bottom-nav" aria-label="Training pages">
+<a class="nav-item active" href="#gymA"><span class="nav-icon">A</span><span>Gym A</span></a>
+<a class="nav-item" href="#gymB"><span class="nav-icon">B</span><span>Gym B</span></a>
+<a class="nav-item" href="#gymC"><span class="nav-icon">C</span><span>Gym C</span></a>
+<a class="nav-item" href="#mobility"><span class="nav-icon">↗</span><span>Mobility</span></a>
+<a class="nav-item" href="#stretch"><span class="nav-icon">○</span><span>Stretch</span></a>
+</nav>
+<div class="toast" id="toast">Saved</div>
+<script>
+(function(){
+  const state={history:{},drafts:{},checks:{}};
+  function safeGet(key,fallback){try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):fallback}catch(e){return fallback}}
+  function safeSet(key,val){try{localStorage.setItem(key,JSON.stringify(val));return true}catch(e){return false}}
+  state.history=safeGet('ramiGymHistoryV4',safeGet('ramiGymHistoryV3',safeGet('ramiGymHistoryV2',{})));
+  state.drafts=safeGet('ramiGymDraftsV4',safeGet('ramiGymDraftsV3',safeGet('ramiGymDraftsV2',{})));
+  state.checks=safeGet('ramiGymChecksV4',safeGet('ramiGymChecksV3',safeGet('ramiGymChecksV2',{})));
+  function save(){safeSet('ramiGymHistoryV4',state.history);safeSet('ramiGymDraftsV4',state.drafts);safeSet('ramiGymChecksV4',state.checks)}
+  function fmt(n){const x=Number(n);if(!Number.isFinite(x))return '0';return Number.isInteger(x)?String(x):x.toFixed(1).replace(/\.0$/,'')}
+  function dateFmt(iso){try{return new Intl.DateTimeFormat('en-GB',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}).format(new Date(iso))}catch(e){return iso}}
+  function toast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('show');clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>t.classList.remove('show'),1300)}
+  const dateEl=document.getElementById('todayLabel');if(dateEl)dateEl.textContent=new Intl.DateTimeFormat('en-GB',{weekday:'short',day:'2-digit',month:'short'}).format(new Date());
+
+  document.querySelectorAll('.exercise-card').forEach(card=>{
+    const id=card.dataset.exercise, step=Number(card.dataset.step)||1, input=card.querySelector('.load-input');
+    const hist=Array.isArray(state.history[id])?state.history[id]:[]; state.history[id]=hist;
+    if(state.drafts[id]!==undefined)input.value=fmt(state.drafts[id]);else if(hist.length)input.value=fmt(hist[hist.length-1].weight);
+    const check=card.querySelector('.done-check');
+    if(check){
+      check.checked=!!state.checks[id];card.classList.toggle('completed',check.checked);
+      check.addEventListener('change',()=>{state.checks[id]=check.checked;card.classList.toggle('completed',check.checked);save();updateGymProgress(card.closest('.page-screen'))})
+    }
+    function updateStats(){
+      const h=state.history[id]||[];
+      const last=h.length?Number(h[h.length-1].weight):null;
+      const best=h.length?Math.max(...h.map(x=>Number(x.weight)||0)):null;
+      card.querySelector('.stat-last').textContent=last===null?'—':fmt(last)+' kg';
+      card.querySelector('.stat-best').textContent=best===null?'—':fmt(best)+' kg';
+      card.querySelector('.history-count').textContent=h.length;
+    }
+    function renderHistory(){
+      const list=card.querySelector('.history-list'),h=state.history[id]||[];
+      if(!h.length){list.innerHTML='<div class="empty-history">No weight entries yet.</div>';return}
+      list.innerHTML=[...h].map((x,i)=>({...x,i})).reverse().map(x=>`<div class="history-row"><span>${dateFmt(x.date)}</span><span class="history-weight">${fmt(x.weight)} kg</span><button type="button" class="history-delete" data-index="${x.i}">Delete</button></div>`).join('');
+      list.querySelectorAll('.history-delete').forEach(btn=>btn.addEventListener('click',()=>{state.history[id].splice(Number(btn.dataset.index),1);save();updateStats();renderHistory();toast('Entry deleted')}));
+    }
+    function setDraft(v){const n=Math.max(0,Number(v)||0);input.value=fmt(n);state.drafts[id]=n;save()}
+    card.querySelector('.minus').addEventListener('click',()=>setDraft((Number(input.value)||0)-step));
+    card.querySelector('.plus').addEventListener('click',()=>setDraft((Number(input.value)||0)+step));
+    input.addEventListener('change',()=>setDraft(input.value));
+    card.querySelector('.log-btn').addEventListener('click',()=>{const v=Math.max(0,Number(input.value)||0);state.history[id].push({date:new Date().toISOString(),weight:v});state.drafts[id]=v;save();updateStats();toast(fmt(v)+' kg logged')});
+    const toggle=card.querySelector('.history-toggle'),panel=card.querySelector('.history-panel');
+    toggle.addEventListener('click',()=>{panel.hidden=!panel.hidden;if(!panel.hidden)renderHistory()});
+    updateStats();
+  });
+
+  function updateGymProgress(section){
+    if(!section)return;const checks=[...section.querySelectorAll('.done-check')];const out=section.querySelector('.done-count');if(out)out.textContent=checks.filter(x=>x.checked).length;
+  }
+  document.querySelectorAll('#gymA,#gymB,#gymC').forEach(updateGymProgress);
+  document.querySelectorAll('.reset-gym-checks').forEach(btn=>btn.addEventListener('click',()=>{
+    const section=btn.closest('.page-screen');
+    section.querySelectorAll('.exercise-card').forEach(card=>{
+      const id=card.dataset.exercise, cb=card.querySelector('.done-check');
+      if(cb)cb.checked=false;
+      card.classList.remove('completed');
+      state.checks[id]=false;
+    });
+    save();
+    updateGymProgress(section);
+    const name=section.querySelector('h2')?.textContent||'Session';
+    toast(name+' checkboxes reset');
+  }));
+
+  document.querySelectorAll('.movement-row').forEach(row=>{
+    const id=row.dataset.movement,check=row.querySelector('input[type=checkbox]');
+    check.checked=!!state.checks[id];row.classList.toggle('completed',check.checked);
+    check.addEventListener('change',()=>{state.checks[id]=check.checked;row.classList.toggle('completed',check.checked);save();updateMoveProgress(row.closest('.page-screen'))});
+  });
+  function updateMoveProgress(section){
+    if(!section)return;const checks=[...section.querySelectorAll('.movement-row input[type=checkbox]')];const out=section.querySelector('.move-done-count');if(out)out.textContent=checks.filter(x=>x.checked).length;
+  }
+  document.querySelectorAll('#mobility,#stretch').forEach(updateMoveProgress);
+  document.querySelectorAll('.reset-checks').forEach(btn=>btn.addEventListener('click',()=>{
+    const section=btn.closest('.page-screen');
+    section.querySelectorAll('.movement-row').forEach(row=>{const id=row.dataset.movement,cb=row.querySelector('input');cb.checked=false;row.classList.remove('completed');state.checks[id]=false});
+    save();updateMoveProgress(section);toast('Checks reset');
+  }));
+  document.querySelectorAll('.timer-btn').forEach(btn=>btn.addEventListener('click',()=>{
+    if(btn.dataset.running==='1')return;let left=Number(btn.dataset.seconds)||45;btn.dataset.running='1';btn.classList.add('running');btn.textContent=left+'s';
+    const timer=setInterval(()=>{left--;btn.textContent=left+'s';if(left<=0){clearInterval(timer);btn.textContent='Done';btn.classList.remove('running');btn.dataset.running='0';setTimeout(()=>btn.textContent=btn.dataset.seconds+'s',1100)}},1000)
+  }));
+
+  const navItems=[...document.querySelectorAll('.bottom-nav .nav-item')];
+  const sectionIds=['gymA','gymB','gymC','mobility','stretch'];
+  const main=document.querySelector('main');
+  if(main)main.classList.add('js-routed');
+  function validSection(id){return sectionIds.includes(id)?id:'gymA'}
+  function activatePage(id,scrollTop=true){
+    id=validSection(id);
+    sectionIds.forEach(sectionId=>{
+      const el=document.getElementById(sectionId);
+      if(el)el.classList.toggle('active',sectionId===id);
+    });
+    navItems.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+    if(scrollTop)window.scrollTo({top:0,left:0,behavior:'auto'});
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    const id=(a.getAttribute('href')||'').slice(1);
+    if(!sectionIds.includes(id))return;
+    a.addEventListener('click',e=>{
+      e.preventDefault();
+      if(location.hash!=='#'+id)history.pushState(null,'','#'+id);
+      activatePage(id,true);
+    });
+  });
+  window.addEventListener('popstate',()=>activatePage((location.hash||'#gymA').slice(1),true));
+  window.addEventListener('hashchange',()=>activatePage((location.hash||'#gymA').slice(1),true));
+  const initial=validSection((location.hash||'#gymA').slice(1));
+  if(location.hash!=='#'+initial)history.replaceState(null,'','#'+initial);
+  activatePage(initial,false);
+})();
+</script>
+</body>
+</html>
